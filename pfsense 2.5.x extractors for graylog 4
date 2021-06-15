@@ -1,0 +1,89 @@
+{
+    "extractors": [
+      {
+        "title": "pfSense filterlog: IPv4 TCP",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "RuleNumber,SubRuleNumber,Anchor,Tracker,Interface,Reason,Action,Direction,IPVersion,TOS,ECN,TTL,ID,Offset,Flags,ProtocolID,Protocol,Length,SourceIP,DestIP,SourcePort,DestPort,DataLength,TCPFlags,Sequence,ACK,Window,URG,Options"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "FilterData",
+        "extractor_config": {
+          "regex_value": "^filterlog\\[.*\\]:\\s+(.*)$"
+        },
+        "condition_type": "regex",
+        "condition_value": "^filterlog\\[.*\\]:\\s+\\d,,,\\d+,(.*),(in|out),4,.*,tcp"
+      },
+      {
+        "title": "pfSense filterlog: IPv6 TCP",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "RuleNumber,SubRuleNumber,Anchor,Tracker,Interface,Reason,Action,Direction,IPVersion,Class,FlowLabel,HopLimit,Protocol,ProtocolID,Length,SourceIP,DestIP,SourcePort,DestPort,DataLength,TCPFlags,Sequence,ACK,Window,URG,Options"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "FilterData",
+        "extractor_config": {
+          "regex_value": "^filterlog\\[.*\\]:\\s+(.*)$"
+        },
+        "condition_type": "regex",
+        "condition_value": "^filterlog\\[.*\\]:\\s+\\d,,,\\d+,(.*),(in|out),6,.*,TCP"
+      },
+      {
+        "title": "pfSense filterlog: IPv4 UDP",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "RuleNumber,SubRuleNumber,Anchor,Tracker,Interface,Reason,Action,Direction,IPVersion,TOS,ECN,TTL,ID,Offset,Flags,ProtocolID,Protocol,Length,SourceIP,DestIP,SourcePort,DestPort,DataLength"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "FilterData",
+        "extractor_config": {
+          "regex_value": "^filterlog\\[\\d+\\]:\\s+(.*)$"
+        },
+        "condition_type": "regex",
+        "condition_value": "^filterlog\\[.*\\]:\\s+\\d,,,\\d+,(.*),(in|out),4,.*,udp"
+      },
+      {
+        "title": "pfSense filterlog: IPv6 UDP",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "RuleNumber,SubRuleNumber,Anchor,Tracker,Interface,Reason,Action,Direction,IPVersion,Class,FlowLabel,HopLimit,Protocol,ProtocolID,Length,SourceIP,DestIP,SourcePort,DestPort,DataLength"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "FilterData",
+        "extractor_config": {
+          "regex_value": "^filterlog\\[.*\\]:\\s+(.*)$"
+        },
+        "condition_type": "regex",
+        "condition_value": "^filterlog\\[.*\\]:\\s+\\d,,,\\d+,(.*),(in|out),6,.*,UDP"
+      }
+    ],
+    "version": "4.0.8"
+  }
